@@ -23,9 +23,12 @@ def restore_wallet(mnemonic_sentence):
     wallet = Wallet(configuration)   \
               .restore(mnemonic_sentence, passphrase)
     wallet.save_keystore(passphrase)
+    private_key = wallet.get_private_key()
+
 
     click.echo('Account address: %s' % str(wallet.get_address()))
     click.echo('Account pub key: %s' % str(wallet.get_public_key()))
+    click.echo('Account private key: %s' % str(private_key.hex()))
 
 if __name__ == '__main__':
     restore_wallet()

@@ -17,10 +17,12 @@ def reveal_seed():
         address = Wallet(configuration).get_address()
         pub_key = Wallet(configuration).get_public_key()
         wallet = Wallet(configuration).load_keystore(password)
+        private_key = wallet.get_private_key().hex()
 
         click.echo('Account prv key: %s' % str(wallet.get_private_key().hex()))
         click.echo('Account pub_key: %s' % str(pub_key))
         click.echo('Account address: %s' % str(address))
+        click.echo('Account pri_key: %s' % str(private_key))
 
     except InvalidPasswordException:
         click.echo('Incorrect password!')

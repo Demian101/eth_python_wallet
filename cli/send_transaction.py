@@ -86,9 +86,9 @@ def send_transaction(to, value, token):
             raw_txn = {
                 "from": wallet.get_address(),
                 "gasPrice": web3.eth.gasPrice,
-                "gas": 500000,
+                "gas": 200000,
                 "to": contract_address,
-                "value": "0x0",
+                "value": '0x0',
                 "data": contract_w3.encodeABI('transfer', args=(to_address, token_amount)),
                 "nonce": web3.eth.getTransactionCount(wallet.get_address())
             }
@@ -96,7 +96,8 @@ def send_transaction(to, value, token):
             signed_txn = web3.eth.account.signTransaction(raw_txn, wallet.get_account().privateKey)
             # 发送交易
             tx_hash = web3.eth.sendRawTransaction(signed_txn.rawTransaction)
-            print("tx hash: ",tx_hash)
+            print("tx hash: ",tx_hash.hex())
+            print("contract_address: ",contract_address)
             # 等待交易执行成功 ...
             while True:
                 tx_receipt = web3.eth.getTransactionReceipt(tx_hash)
